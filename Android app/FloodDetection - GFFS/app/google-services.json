@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "138122529101",
+    "project_id": "flooddetection-710f1",
+    "storage_bucket": "flooddetection-710f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138122529101:android:2ac1f4dc9cf79820790f04",
+        "android_client_info": {
+          "package_name": "com.example.flooddetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138122529101-khf388iqb03oq206vrqeev6o548s6c5i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxygyu3ZXsBpRwHI-t9UFw03HCAIRUEc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138122529101-khf388iqb03oq206vrqeev6o548s6c5i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
