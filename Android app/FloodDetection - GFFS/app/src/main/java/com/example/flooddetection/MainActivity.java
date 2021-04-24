@@ -12,6 +12,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Switch;
@@ -41,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        System.out.println("Tests");
+        setButtons();
+        warning();
     }
 
     private void setButtons() {
@@ -112,4 +115,36 @@ public class MainActivity extends AppCompatActivity {
             return new double[] {33.0198, 96.6989};
         }
     }
+
+    private void warning() {
+        boolean test = false; //TODO code the logic that will make this true or false accordingly.
+        ViewGroup.LayoutParams params = floodWarning.getLayoutParams(); //text that says if there is warning or not
+        ViewGroup.LayoutParams params1 = box1.getLayoutParams(); //1st box
+        ViewGroup.LayoutParams params2 = box2.getLayoutParams(); //2nd box
+        ViewGroup.LayoutParams params3 = floodList.getLayoutParams(); //2nd box
+
+        if (test) {
+            floodWarning.setText("Emergency Alert: Flood Warning in this area til 6:00 PM EDT. Take shelter now.");
+            setMargins(dangerSign,0, 140, 20, 0);
+        } else {
+            params.width = 800;
+            params.height = 250;
+            params1.height = 300;
+            params2.height += 280;
+            params3.height += 280;
+            //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            //dangerSign.setLayoutParams(lp);
+            dangerSign.setImageResource(R.drawable.greenche);
+            floodWarning.setText("No Warnings.    ");
+        }
+    }
+
+    public static void setMargins (View v, int l, int t, int r, int b) {
+        if (v.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+            p.setMargins(l, t, r, b);
+            v.requestLayout();
+        }
+    }
+
 }
