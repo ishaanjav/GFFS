@@ -24,4 +24,7 @@ default_app = firebase_admin.initialize_app(cred_obj, {
 
 sampleJson = createJson("plano", "4-24-2021:", 33.0198, 96.6989, 8, True, 2213)
 ref = db.reference("/warnings/" + "plano")
+# print(type(sampleJson))
+sampleJson = json.loads(sampleJson)
+# print(sampleJson)
 ref.push().set(sampleJson)
