@@ -2,6 +2,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 import json
+import csv
 
 cred_obj = firebase_admin.credentials.Certificate('PythonToDB\\flooddetection-710f1-firebase-adminsdk-ry9mj-cbc3f6466f.json')
 default_app = firebase_admin.initialize_app(cred_obj, {
@@ -23,4 +24,18 @@ def pushJson(location: str, date: str, lat: float, long: float, severity: int, s
 
 # ref = db.reference("https://flooddetection-710f1-default-rtdb.firebaseio.com/warnings")
 
-pushJson("plano", "4-24-2021:", 5, 96.6989, 8, True, 2213)
+# pushJson("plano", "4-24-2021:", 5, 96.6989, 8, True, 2213)
+
+csvFilePath = 'PythonToDB\samplecsv.csv'
+data = {}
+with open(csvFilePath) as csvFile:
+	csvReader = csv.DictReader(csvFile)
+	i = 1
+	for rows in csvReader:
+		data[i] = rows
+		i += 1
+
+data = json.loads(json.dumps(data))
+print(data)
+for key, value in data.items():
+	pushJson(value.get('location'), value.get('date'), value.get('latitude'), value.get('longitude'), value.get('severity'), value.get('status'), value.get('time'))

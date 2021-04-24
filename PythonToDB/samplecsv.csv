@@ -1,0 +1,4 @@
+location,date,latitude,longitude,severity,status,time
+plano,"""4-24-21""",12,12,1,TRUE,1212
+plano,"""4-25-21""",21,21,2,FALSE,1213
+plano,"""4-26-21""",23,23,3,TRUE,1214
