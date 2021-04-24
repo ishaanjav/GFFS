@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Data files
 *.gz
 *.zip
@@ -147,3 +148,9 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+=======
+*.DS_Store
+node_modules
+*.node_modules
+DS_Store
+>>>>>>> 3fb8c7be874b3132831c6ec30365540e49c2a682
