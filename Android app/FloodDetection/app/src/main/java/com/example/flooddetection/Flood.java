@@ -59,8 +59,8 @@ public class Flood{
     @Override
     public String toString() {
         //String output = location + "\t" + date + " " + convertTime();
-        String output = String.format("%-15s", location);
-        return output + date + " " + time;
+        String output = String.format("%7s", location);
+        return output + date + " " + convertTime();
     }
 
 }

@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -60,29 +61,36 @@ public class MainActivity extends AppCompatActivity {
     String curLoc;
     Switch aSwitch;
 
+    public static int params1Height = 551;
+    public static int params2Height = 788;
+    public static int params3Height = 591;
+    public static int params4Height = 517;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setButtons();
-        warning();
         curLoc = getCityName();
+        dbWarning();
         readDataLocal();
         btn.setText(getCityName());
         currentLocation.setText("Location: " + getCityName());
         curLoc = getCityName();
 
         aSwitch.setOnClickListener(new View.OnClickListener() {
-           public void onClick(View v) {
-               if (aSwitch.isChecked()) {
-                   readDataGlobal();
-                   btn.setText("Global");
-               }
-               else {
-                   readDataLocalSpecific(curLoc);
-                   btn.setText(getCityName(curLoc));
-               }
-           }
+            public void onClick(View v) {
+                if (aSwitch.isChecked()) {
+                    readDataGlobal();
+                    btn.setText("Global");
+                }
+                else {
+                    readDataLocalSpecific(curLoc);
+                    btn.setText(getCityName(curLoc));
+                }
+            }
         });
 
         search.setOnClickListener(new View.OnClickListener() {
@@ -98,7 +106,14 @@ public class MainActivity extends AppCompatActivity {
                         readDataLocalSpecific(getCityName(input.getText().toString()));
                         curLoc = getCityName(input.getText().toString());
                         btn.setText(getCityName(input.getText().toString()));
-                        currentLocation.setText("Location: " + getCityName(input.getText().toString()));
+                        String temp = getCityName(input.getText().toString());
+
+                        if (temp.length() < 14)
+                            currentLocation.setText("Location: " + temp);
+                        else
+                            currentLocation.setText("Location: " + temp.substring(0,11) + "...");
+
+                        dbWarning();
                         System.out.println("got here");
                     }
                 });
@@ -113,9 +128,37 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private boolean dbWarning() {
+        final boolean[] ret = {false};
+        final String loc = curLoc.substring(0, curLoc.indexOf(","));
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("warnings/" + loc);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                boolean temp = false;
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    System.out.println(snapshot.toString());
+                    System.out.println(Boolean.parseBoolean("" + snapshot.child("status").getValue()) == true);
+                    System.out.println(snapshot.child("status").getValue());
+                    if (Boolean.parseBoolean("" + snapshot.child("status").getValue()) == true)
+                    {
+                        temp = true;
+                    }
+                }
+                warning(temp);
+            }
+            //vibration if there is a warning
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-    private void warning() {
-        boolean test = false; //TODO code the logic that will make this true or false accordingly.
+            }
+        });
+        System.out.println(Arrays.toString(ret));
+        return ret[0];
+    }
+
+    private void warning (boolean t) {
+        boolean test = t;
         ViewGroup.LayoutParams params = floodWarning.getLayoutParams(); //text that says if there is warning or not
         ViewGroup.LayoutParams params1 = box1.getLayoutParams(); //1st box
         ViewGroup.LayoutParams params2 = box2.getLayoutParams(); //2nd box
@@ -123,15 +166,25 @@ public class MainActivity extends AppCompatActivity {
 
         if (test) {
             floodWarning.setText("Emergency Alert: Flood Warning in this area til 6:00 PM EDT. Take shelter now.");
-            setMargins(dangerSign,0, 140, 20, 0);
+            setMargins(dangerSign,0, 150, 20, 0);
+            dangerSign.setImageResource(R.drawable.danger);
+            params1.height = params1Height;
+            params2.height = params2Height;
+            params3.height = params3Height;
+            params.height = params4Height;
+            System.out.println(params1Height);
+            System.out.println(params2Height);
+            System.out.println(params3Height);
+            System.out.println(params4Height);
+
+
         } else {
             params.width = 800;
             params.height = 250;
             params1.height = 300;
-            params2.height += 280;
-            params3.height += 280;
-            //LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            //dangerSign.setLayoutParams(lp);
+            params2.height = params2Height + 280;
+            params3.height = params4Height + 280;
+            //setMargins(dangerSign,)
             dangerSign.setImageResource(R.drawable.greenche);
             floodWarning.setText("No Warnings.    ");
         }
@@ -198,17 +251,12 @@ public class MainActivity extends AppCompatActivity {
         return "Current Location";
     }
 
-    public String getData(String data, String type) {
-        return data.substring(data.indexOf(type) + type.length() + 1, data.indexOf(",",data.indexOf(type)));
-    }
-
     public void readDataLocal() {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
-        final ListViewAdapter adapter = new ListViewAdapter(this, floods);
+        final ArrayAdapter adapter = new ArrayAdapter(this, R.layout.old_list_item, floods);
         floodList.setAdapter(adapter);
-//        final String loc = curLoc.substring(0, curLoc.indexOf(","));
-        final String loc = "Plano";
+        final String loc = curLoc.substring(0, curLoc.indexOf(","));
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("past_floods/" + loc);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -223,7 +271,6 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(floods, sort);
                     adapter.notifyDataSetChanged();
                 }
-                System.out.println(floods.size());
                 adapter.notifyDataSetChanged();
             }
 
@@ -237,25 +284,24 @@ public class MainActivity extends AppCompatActivity {
     public void readDataLocalSpecific(final String str) {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
-        final ListViewAdapter adapter = new ListViewAdapter(this, floods);
+        final ArrayAdapter adapter = new ArrayAdapter(this, R.layout.old_list_item, floods);
         floodList.setAdapter(adapter);
-//        final String loc = curLoc.substring(0, curLoc.indexOf(","));
-        final String loc = "Plano";
+        final String loc = curLoc.substring(0, curLoc.indexOf(","));
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("past_floods/" + loc);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 floods.clear(); preSortFloods.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-//                        System.out.println(curLoc + " " + snapshot.getKey());
-                        floods.add(new Flood(loc, snapshot.child("date").getValue().toString()
-                                , Double.parseDouble(snapshot.child("latitude").getValue().toString()), Double.parseDouble(snapshot.child("longitude").getValue().toString())
-                                , Integer.parseInt(snapshot.child("time").getValue().toString()), Integer.parseInt(snapshot.child("severity").getValue().toString())));
-                        FloodSort sort = new FloodSort();
-                        Collections.sort(floods, sort);
-                        adapter.notifyDataSetChanged();
-                    }
+                    System.out.println(curLoc + " " + snapshot.getKey());
+                    floods.add(new Flood(loc, snapshot.child("date").getValue().toString()
+                            , Double.parseDouble(snapshot.child("latitude").getValue().toString()), Double.parseDouble(snapshot.child("longitude").getValue().toString())
+                            , Integer.parseInt(snapshot.child("time").getValue().toString()), Integer.parseInt(snapshot.child("severity").getValue().toString())));
+                    FloodSort sort = new FloodSort();
+                    Collections.sort(floods, sort);
+                    adapter.notifyDataSetChanged();
                 }
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -267,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
     public void readDataGlobal() {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
-        final ListViewAdapter adapter = new ListViewAdapter(this, floods);
+        final ArrayAdapter adapter = new ArrayAdapter(this, R.layout.old_list_item, floods);
         floodList.setAdapter(adapter);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("past_floods");
         reference.addValueEventListener(new ValueEventListener() {

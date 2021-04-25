@@ -22,6 +22,7 @@ class ListViewAdapter extends ArrayAdapter<String> {
         super(context, R.layout.list_item);
         this.context = context;
         list = items;
+        System.out.println("ITEMS: " + items.size());
     }
 
     @NonNull
