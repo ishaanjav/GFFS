@@ -6,7 +6,7 @@ function Susmap(props) {
     return (<>
     <div className="absolute" style={{"marginLeft": 40, "marginTop": 340, "width": 500}}>
     <div className="text-2xl text-center">
-        Region Susceptibility Map
+        Region Susceptibility Map 
     </div>
     {<img src = {images[props.index]} />}
        
