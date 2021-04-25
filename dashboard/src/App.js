@@ -9,11 +9,7 @@ import Susmap from "./Susmap";
 function App(props) {
   const [currentCenter, setCurrentCenter] = useState({ lat: 43, lng: -80 });
   const [locations, setLocations] = useState([])
-  const lats = [47.606, 51.0447, 49.2827];
-  const lons = [122.332, 114.0719, 123.1207];
   const [idx, setidx] = useState(-1);
-  const [currlat, setcurrlat] = useState(0);
-  const [currlon, setcurrlon] = useState(0);
 
 
 
@@ -44,19 +40,19 @@ function App(props) {
     });
   }, []);
 
-  // const cols = cells => {
-  //   return cells.colors.map((c, i) => <td key={i}>
-  //     <div style={{ background: background(c), height: '40px', width: '40px' }}>
-  //       <span style={{ fontSize: '0.6em' }}>{cells.scales[i].toFixed(1)}</span>
-  //     </div>
-  //   </td>);
-  // }
+  const cols = cells => {
+    return cells.colors.map((c, i) => <td key={i}>
+      <div style={{ background: background(c), height: '40px', width: '40px' }}>
+        <span style={{ fontSize: '0.6em' }}>{cells.scales[i].toFixed(1)}</span>
+      </div>
+    </td>);
+  }
   
-  // const Rows = () =>
-  //   data.rows.map((row, i) => <tr key={row.label}>
-  //     <td>{row.label}</td>{cols(row.cells)}
-  //   </tr>
-  //   );
+  const Rows = () =>
+    data.rows.map((row, i) => <tr key={row.label}>
+      <td>{row.label}</td>{cols(row.cells)}
+    </tr>
+    );
 
   useEffect(() => {
     console.log("locations", locations);

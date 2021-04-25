@@ -4,21 +4,6 @@ import React, { Component } from 'react'
 export class Warning extends Component {
     constructor(props) {
         super(props);
-  this.state = { warning: [true, false, true], index: 0, severities: [0, 2, 0, 4]};
-        this.keyListener = this.keyListener.bind(this);
-    }
-    keyListener(event) {
-        if (event.keyCode === 75) {
-            // change the warning state when k key pressed
-            this.setState((prev) => ({ index: prev.index+1 }));
-            console.log("UP")
-        }
-    }
-    componentDidMount() {
-        document.addEventListener("keydown", this.keyListener, false);
-    }
-    componentWillUnmount() {
-        document.removeEventListener("keydown", this.keyListener, false);
     }
     render() {
         var floodBox;
