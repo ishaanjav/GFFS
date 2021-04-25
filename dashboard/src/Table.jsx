@@ -85,7 +85,7 @@ function Table() {
                 </div>
                 <div class="v11_257">
                     <div class="v11_258"></div>
-                    <span class="v11_259">Latitude/Longitude</span>
+                    <span class="v11_259">Longitude/Latitude</span>
                 </div>
                 <div class="v11_260"></div>
                 <div class="v11_261"></div>
