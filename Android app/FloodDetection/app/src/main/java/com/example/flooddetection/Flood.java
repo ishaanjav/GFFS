@@ -65,6 +65,7 @@ public class Flood {
         String output = "";
         for (int i = 0; i < arr.length; i++) {
             if (arr[i].length() != 2) {
+                if (arr[i].length() != 4)
                 arr[i] = "0" + arr[i];
             }
             if (i != arr.length - 1)

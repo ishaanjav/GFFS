@@ -265,6 +265,7 @@ public class MainActivity extends AppCompatActivity {
         return "Current Location";
     }
 
+
     public void readDataLocal() {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
