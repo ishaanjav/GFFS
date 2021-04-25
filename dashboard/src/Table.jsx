@@ -65,7 +65,7 @@ function Table() {
             <div class="v11_241">
                 <div class="v11_242">
                     <div class="v11_243"></div>
-                    <span class="v11_244">46.8202 N, 113.3351 W</span>
+                    <span class="v11_244">7.8044° N, 122.2712° W</span>
                 </div>
                 <div class="v11_245">
                     <div class="v11_246"></div>
@@ -73,15 +73,15 @@ function Table() {
                 </div>
                 <div class="v11_248">
                     <div class="v11_249"></div>
-                    <span class="v11_250">32.5962 N, 96.8626 W</span>
+                    <span class="v11_250">26.7153° N, 80.0534° W</span>
                 </div>
                 <div class="v11_251">p
                     <div class="v11_252"></div>
-                    <span class="v11_253">39.8367 N, 105.0372 W</span>
+                    <span class="v11_253">32.7157° N, 117.1611° W</span>
                 </div>
                 <div class="v11_254">
                     <div class="v11_255"></div>
-                    <span class="v11_256">35.5324 N, 82.64352 W</span>
+                    <span class="v11_256">34.0522° N, 118.2437° W</span>
                 </div>
                 <div class="v11_257">
                     <div class="v11_258"></div>
@@ -93,27 +93,27 @@ function Table() {
             <div class="v11_262">
                 <div class="v11_263">
                     <div class="v11_264"></div>
-                    <span class="v11_265">San Jose, Montana</span>
+                    <span class="v11_265">Fresno, CA</span>
                 </div>
                 <div class="v11_266">
                     <div class="v11_267"></div>
-                    <span class="v11_268">San Jose, South Dakota</span>
+                    <span class="v11_268">Oaklan, CA</span>
                 </div>
                 <div class="v11_269">
                     <div class="v11_270"></div>
-                    <span class="v11_271">Desoto, Oklahoma</span>
+                    <span class="v11_271">San Jose, CA</span>
                 </div>
                 <div class="v11_272">
                     <div class="v11_273"></div>
-                    <span class="v11_274">Westminster, Kentucky</span>
+                    <span class="v11_274">West Palm Beach, CA</span>
                 </div>
                 <div class="v11_275">
                     <div class="v11_276"></div>
-                    <span class="v11_277">Asheville, NC</span>
+                    <span class="v11_277">San Diego, CA</span>
                 </div>
                 <div class="v11_278">
                     <div class="v11_279"></div>
-                    <span class="v11_280">Location</span>
+                    <span class="v11_280">Los Angles, CA</span>
                 </div>
                 <div class="v11_281"></div>
                 <div class="v11_282"></div>
@@ -147,7 +147,7 @@ function Table() {
                 <div class="v11_303"></div>
             </div>
             <div class="v11_325">
-                <span class="text-2xl">Recent Warnings Across The World</span>
+                <span class="text-2xl">Recent Warnings Nearby You</span>
             </div>
         </div>
     </>)
