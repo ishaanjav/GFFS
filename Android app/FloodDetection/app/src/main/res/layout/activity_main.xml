@@ -141,7 +141,7 @@
         android:layout_height="100dp"
         android:layout_below="@+id/box2"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="7dp"
         android:theme="@style/SwitchTheme"
         android:scaleX="2"

@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 boolean temp = false;
+                int severitylevel = 0;
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     System.out.println(snapshot.toString());
                     System.out.println(Boolean.parseBoolean("" + snapshot.child("status").getValue()) == true);
@@ -147,9 +148,10 @@ public class MainActivity extends AppCompatActivity {
                     if (Boolean.parseBoolean("" + snapshot.child("status").getValue()) == true)
                     {
                         temp = true;
+                        severitylevel = Integer.parseInt("" + snapshot.child("severity").getValue());
                     }
                 }
-                warning(temp);
+                warning(temp,severitylevel);
             }
             //vibration if there is a warning
             @Override
@@ -161,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         return ret[0];
     }
 
-    private void warning (boolean t) {
+    private void warning (boolean t, int severityLevel) {
         boolean test = t;
         ViewGroup.LayoutParams params = floodWarning.getLayoutParams(); //text that says if there is warning or not
         ViewGroup.LayoutParams params1 = box1.getLayoutParams(); //1st box
@@ -171,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (test) {
-            floodWarning.setText("Emergency Alert: Flood Warning in this area til 6:00 PM EDT. Take shelter now.");
+            floodWarning.setText("Emergency Alert: Flood Warning in this area til 6:00 PM CDT.        Severity Level " + severityLevel +".");
             setMargins(dangerSign,0, 150, 20, 0);
             dangerSign.setImageResource(R.drawable.danger);
             params1.height = params1Height;
