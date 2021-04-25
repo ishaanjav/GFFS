@@ -18,13 +18,6 @@ function App(props) {
 
 
   useEffect(() => {
-    function keyListener(event) {
-      if (event.keyCode === 75) {
-        // change the warning state when k key pressed
-        // console.log(idx);
-        setidx(prev => prev+1);
-      }
-    }
     document.addEventListener("keydown", keyListener, false);
     var firebaseConfig = {
       "project_number": "138122529101",
