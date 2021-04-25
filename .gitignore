@@ -3,6 +3,8 @@
 *.zip
 *.pdf
 # *.csv
+StormEvents*
+ugc*
 node_modules/
 .DS_Store
 
