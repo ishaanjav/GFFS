@@ -9,6 +9,12 @@ public class Flood{
     public int time;
     public int severity;
 
+    public Flood(String location, String date, int time, int severity) {
+        this.location = location;
+        this.date = date;
+        this.time = time;
+        this.severity = severity;
+    }
 
     public Flood(String location, String date, double latitude, double longitude, boolean status, int time, int severity) {
         this.location = location;

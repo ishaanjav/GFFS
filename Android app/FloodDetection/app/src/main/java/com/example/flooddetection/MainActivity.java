@@ -22,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -206,9 +205,10 @@ public class MainActivity extends AppCompatActivity {
     public void readDataLocal() {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
-        final ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item, floods);
+        final ListViewAdapter adapter = new ListViewAdapter(this, floods);
         floodList.setAdapter(adapter);
-        final String loc = curLoc.substring(0, curLoc.indexOf(","));
+//        final String loc = curLoc.substring(0, curLoc.indexOf(","));
+        final String loc = "Plano";
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("past_floods/" + loc);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -223,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
                     Collections.sort(floods, sort);
                     adapter.notifyDataSetChanged();
                 }
+                System.out.println(floods.size());
                 adapter.notifyDataSetChanged();
             }
 
@@ -236,16 +237,17 @@ public class MainActivity extends AppCompatActivity {
     public void readDataLocalSpecific(final String str) {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
-        final ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item, floods);
+        final ListViewAdapter adapter = new ListViewAdapter(this, floods);
         floodList.setAdapter(adapter);
-        final String loc = curLoc.substring(0, curLoc.indexOf(","));
+//        final String loc = curLoc.substring(0, curLoc.indexOf(","));
+        final String loc = "Plano";
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("past_floods/" + loc);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 floods.clear(); preSortFloods.clear();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                        System.out.println(curLoc + " " + snapshot.getKey());
+//                        System.out.println(curLoc + " " + snapshot.getKey());
                         floods.add(new Flood(loc, snapshot.child("date").getValue().toString()
                                 , Double.parseDouble(snapshot.child("latitude").getValue().toString()), Double.parseDouble(snapshot.child("longitude").getValue().toString())
                                 , Integer.parseInt(snapshot.child("time").getValue().toString()), Integer.parseInt(snapshot.child("severity").getValue().toString())));
@@ -265,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
     public void readDataGlobal() {
         final ArrayList<Flood> floods = new ArrayList<>();
         final ArrayList<Flood> preSortFloods = new ArrayList<>();
-        final ArrayAdapter adapter = new ArrayAdapter(this, R.layout.list_item, floods);
+        final ListViewAdapter adapter = new ListViewAdapter(this, floods);
         floodList.setAdapter(adapter);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("past_floods");
         reference.addValueEventListener(new ValueEventListener() {
