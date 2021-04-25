@@ -16,7 +16,9 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -45,6 +47,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import android.os.Vibrator;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -163,6 +167,8 @@ public class MainActivity extends AppCompatActivity {
         ViewGroup.LayoutParams params1 = box1.getLayoutParams(); //1st box
         ViewGroup.LayoutParams params2 = box2.getLayoutParams(); //2nd box
         ViewGroup.LayoutParams params3 = floodList.getLayoutParams(); //2nd box
+        ViewGroup.LayoutParams params5 = dangerSign.getLayoutParams(); //2nd box
+
 
         if (test) {
             floodWarning.setText("Emergency Alert: Flood Warning in this area til 6:00 PM EDT. Take shelter now.");
@@ -176,7 +182,14 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(params2Height);
             System.out.println(params3Height);
             System.out.println(params4Height);
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                //deprecated in API 26
+                v.vibrate(500);
+            }
 
         } else {
             params.width = 800;
@@ -184,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
             params1.height = 300;
             params2.height = params2Height + 280;
             params3.height = params4Height + 280;
+            setMargins(dangerSign, 0,30,10,0);
             //setMargins(dangerSign,)
             dangerSign.setImageResource(R.drawable.greenche);
             floodWarning.setText("No Warnings.    ");

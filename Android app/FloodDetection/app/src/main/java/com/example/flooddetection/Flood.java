@@ -1,6 +1,14 @@
 package com.example.flooddetection;
 
-public class Flood{
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class Flood {
     public String location;
     public String date;
     public double latitude;
@@ -52,15 +60,24 @@ public class Flood{
         }
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public String convertDate() {
+        String[] arr = date.split("/");
+        String output = "";
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].length() != 2) {
+                arr[i] = "0" + arr[i];
+            }
+            if (i != arr.length - 1)
+                output += arr[i] + "/";
+            else
+                output += arr[i];
+        }
+        return output;
     }
 
     @Override
     public String toString() {
-        //String output = location + "\t" + date + " " + convertTime();
-        String output = String.format("%7s", location);
-        return output + date + " " + convertTime();
+        return location + ": " + convertDate() + " " + convertTime();
     }
 
 }
