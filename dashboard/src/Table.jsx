@@ -45,11 +45,11 @@ function Table() {
                 </div>
                 <div class="v11_227">
                     <div class="v11_243"></div>
-                    <span class="v11_244">2</span>
+                    <span class="v11_244">7</span>
                 </div>
                 <div class="v11_230">
                     <div class="v11_243"></div>
-                    <span class="v11_244">1</span>
+                    <span class="v11_244">6</span>
                 </div>
                 <div class="v11_233">
                     <div class="v11_243"></div>
