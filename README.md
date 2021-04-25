@@ -1,5 +1,8 @@
 # GFFS: A Global Flood Forecasting System
-## Shrey Joshi, Ishaan Javali, Madhu Sharma, & Kanishk Garg
+## Ishaan Javali, Shrey Joshi, Madhu Sharma, & Kanishk Garg
+
+Video: https://youtu.be/d3TdkqCGaOQ
+Devpost: https://devpost.com/software/gffs
 
 Data Sources:
 - Elevation data: NASA SRTM - is there a water body nearby with higher elevation than surroundings?
